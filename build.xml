@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Ant build script for binabangsa_pay_desk -->
+<project name="binabangsa_pay_desk" default="run" basedir=".">
+    <description>Build file for the SPP payment desktop application.</description>
+
+    <property file="config.properties"/>
+    <property name="src.dir" location="src"/>
+    <property name="lib.dir" location="lib"/>
+    <property name="build.dir" location="build"/>
+    <property name="dist.dir" location="dist"/>
+    <property name="main.class" value="Main"/>
+
+    <!-- Classpath: lib jars plus compiled classes -->
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        <pathelement location="${build.dir}/out"/>
+    </path>
+
+    <target name="init">
+        <mkdir dir="${build.dir}/out"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="init"
+            description="Compile Java source files.">
+        <javac srcdir="${src.dir}" destdir="${build.dir}/out"
+               classpathref="classpath" encoding="UTF-8"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="run" depends="compile"
+            description="Run the application.">
+        <java classname="${main.class}" fork="true" dir="${basedir}">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="jar" depends="compile"
+            description="Package into a JAR file.">
+        <jar destfile="${dist.dir}/binabangsa_pay_desk.jar" basedir="${build.dir}/out">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean"
+            description="Clean build output.">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+</project>

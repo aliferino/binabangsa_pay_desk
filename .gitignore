@@ -1,0 +1,20 @@
+# Build output
+/build/
+/dist/
+/nbproject/private/
+
+# IDE files
+/nbproject/private/
+*.class
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temp files
+*.tmp
+*~
+
+# Hermes temp folders
+.hermes-tmp*
+

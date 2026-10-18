@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *** GENERATED FROM project.xml - DO NOT EDIT  ***
+    *** EDIT ../build.xml INSTEAD ***
+
+    For the purpose of easy reading without a proper XML editor,
+    this file is indented with a single space character per level.
+-->
+<project name="binabangsa_pay_desk-impl" default="default" basedir=".." xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:jaxws="http://www.netbeans.org/ns/jaxws-properties/1">
+
+    <target name="default" depends="jar" description="Build and test the project.">
+    </target>
+
+    <!-- ============ File paths and external properties ============ -->
+    <property file="nbproject/project.properties"/>
+
+    <condition property="have.tests">
+        <or>
+            <available file="${test.src.dir}"/>
+        </or>
+    </condition>
+    <condition property="have.sources">
+        <or>
+            <available file="${src.dir}"/>
+        </or>
+    </condition>
+
+    <available file="${build.dir}" type="dir" property="build.dir.exists"/>
+    <available file="${dist.dir}" type="dir" property="dist.dir.exists"/>
+
+    <property name="build.classes.excludes" value=""/>
+    <property name="dist.javadoc.dir" value="${dist.dir}/javadoc"/>
+
+    <!-- ============ Init ============ -->
+    <target name="-init-project">
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- ============ Compile ============ -->
+    <target name="-compile" depends="-init-project" if="have.sources">
+        <path id="javac.classpath">
+            <fileset dir="lib" includes="**/*.jar" erroronmissingdir="false"/>
+        </path>
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+               classpathref="javac.classpath" encoding="UTF-8"
+               includeantruntime="false"/>
+    </target>
+
+    <!-- ============ Jar ============ -->
+    <target name="-jar" depends="-compile">
+        <jar destfile="${dist.jar}" basedir="${build.classes.dir}"
+             excludes="${build.classes.excludes}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- ============ Run ============ -->
+    <target name="run" depends="-compile">
+        <path id="run.classpath">
+            <fileset dir="lib" includes="**/*.jar" erroronmissingdir="false"/>
+            <pathelement location="${build.classes.dir}"/>
+        </path>
+        <java classname="${main.class}" fork="true" dir="${basedir}">
+            <classpath>
+                <path refid="run.classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- ============ Clean ============ -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+</project>
