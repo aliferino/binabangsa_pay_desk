@@ -82,6 +82,16 @@ public class Main {
         addMenu(adminMenu, "Tagihan SPP", e -> switchPanel(frame, new TuitionBillView()));
         addMenu(adminMenu, "Pengguna", e -> switchPanel(frame, new UserView()));
 
+        JMenu tellerMenu = new JMenu("Teller");
+        tellerMenu.setMnemonic(KeyEvent.VK_T);
+        addMenu(tellerMenu, "Dashboard Teller",
+                e -> switchPanel(frame, new TellerDashboardView(0)));
+
+        JMenu kepsekMenu = new JMenu("Kepala Sekolah");
+        kepsekMenu.setMnemonic(KeyEvent.VK_K);
+        addMenu(kepsekMenu, "Dashboard Kepala Sekolah",
+                e -> switchPanel(frame, new HeadmasterDashboardView()));
+
         JMenu helpMenu = new JMenu("Bantuan");
         helpMenu.setMnemonic(KeyEvent.VK_B);
         JMenuItem aboutItem = new JMenuItem("Tentang");
@@ -92,6 +102,8 @@ public class Main {
 
         menuBar.add(appMenu);
         menuBar.add(adminMenu);
+        menuBar.add(tellerMenu);
+        menuBar.add(kepsekMenu);
         menuBar.add(helpMenu);
 
         return menuBar;
